@@ -38,6 +38,7 @@ Files that should be uploaded include:
 
 - `app.py`
 - `requirements.txt`
+- `.python-version`
 - `runtime.txt`
 - `schema.sql`
 - `render.yaml`
@@ -127,7 +128,25 @@ If Render logs show an error like:
 undefined symbol: _PyInterpreterState_Get
 ```
 
-Render is using an unsupported Python version. Make sure this file exists in your GitHub repository:
+Render is using an unsupported Python version. First, add this environment variable in Render:
+
+```text
+PYTHON_VERSION=3.10.13
+```
+
+Also make sure this file exists in your GitHub repository:
+
+```text
+.python-version
+```
+
+It should contain:
+
+```text
+3.10.13
+```
+
+This older file is also included for compatibility:
 
 ```text
 runtime.txt
