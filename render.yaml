@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: face-recognition-attendance-system
+    env: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.10.13
+      - key: SECRET_KEY
+        generateValue: true
+      - key: FACE_CONFIDENCE_THRESHOLD
+        value: 80

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Panel | Attendance System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <main class="shell">
+        <section class="topbar">
+            <div>
+                <p class="eyebrow">Teacher Panel</p>
+                <h1>Mark Attendance</h1>
+                <p class="hero-text">Welcome, {{ user.full_name }}. Mark attendance by face recognition or manually if needed.</p>
+            </div>
+            <a class="logout-link" href="{{ url_for('logout') }}">Logout</a>
+        </section>
+
+        <section class="stats-grid teacher-stats">
+            <div class="stat-card">
+                <span>Total Students</span>
+                <strong id="totalStudents">0</strong>
+            </div>
+            <div class="stat-card">
+                <span>Present Today</span>
+                <strong id="presentToday">0</strong>
+            </div>
+            <div class="stat-card">
+                <span>Absent Today</span>
+                <strong id="absentToday">0</strong>
+            </div>
+        </section>
+
+        <section class="grid teacher-grid">
+            <div class="card camera-card">
+                <h2>Face Attendance</h2>
+                <video id="camera" autoplay playsinline></video>
+                <canvas id="snapshot" class="hidden"></canvas>
+                <p id="cameraStatus" class="muted">Starting camera...</p>
+                <button id="attendanceBtn" type="button" class="primary">Recognize and Mark Present</button>
+                <div id="resultBox" class="result-box">Waiting for attendance action.</div>
+            </div>
+
+            <div class="card table-card no-margin">
+                <div class="table-header">
+                    <div>
+                        <p class="eyebrow">Manual Control</p>
+                        <h2>Students</h2>
+                    </div>
+                    <button id="refreshStudentsBtn" type="button" class="ghost">Refresh</button>
+                </div>
+
+                <div id="teacherResult" class="result-box">Teacher controls ready.</div>
+
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Roll No.</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="studentAdminTable">
+                            <tr><td colspan="4">Loading students...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section class="card table-card">
+            <div class="table-header">
+                <div>
+                    <p class="eyebrow">Live Records</p>
+                    <h2>Today's Attendance</h2>
+                </div>
+                <button id="refreshAttendanceBtn" type="button" class="ghost">Refresh</button>
+            </div>
+
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Roll No.</th>
+                            <th>Time</th>
+                            <th>Marked By</th>
+                            <th>Confidence</th>
+                        </tr>
+                    </thead>
+                    <tbody id="attendanceTable">
+                        <tr><td colspan="5">Loading attendance...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="card table-card">
+            <div class="table-header">
+                <div>
+                    <p class="eyebrow">Reports</p>
+                    <h2>Date Wise Attendance Report</h2>
+                </div>
+                <div class="report-actions">
+                    <input id="reportDate" type="date">
+                    <button id="loadReportBtn" type="button" class="ghost">Load Report</button>
+                    <button id="downloadReportBtn" type="button" class="ghost">Download CSV</button>
+                </div>
+            </div>
+
+            <div id="reportSummary" class="result-box">Choose a date to view attendance report.</div>
+
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Roll No.</th>
+                            <th>Status</th>
+                            <th>Time</th>
+                            <th>Marked By</th>
+                        </tr>
+                    </thead>
+                    <tbody id="reportTable">
+                        <tr><td colspan="5">No report loaded yet.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <script src="{{ url_for('static', filename='teacher.js') }}"></script>
+</body>
+</html>

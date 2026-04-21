@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel | Attendance System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <main class="shell">
+        <section class="topbar">
+            <div>
+                <p class="eyebrow">Admin Panel</p>
+                <h1>Manage System</h1>
+                <p class="hero-text">Welcome, {{ user.full_name }}. Add student faces, create teacher accounts, and remove students.</p>
+            </div>
+            <a class="logout-link" href="{{ url_for('logout') }}">Logout</a>
+        </section>
+
+        <section class="stats-grid">
+            <div class="stat-card">
+                <span>Total Students</span>
+                <strong id="totalStudents">0</strong>
+            </div>
+            <div class="stat-card">
+                <span>Present Today</span>
+                <strong id="presentToday">0</strong>
+            </div>
+            <div class="stat-card">
+                <span>Absent Today</span>
+                <strong id="absentToday">0</strong>
+            </div>
+            <div class="stat-card">
+                <span>Total Teachers</span>
+                <strong id="totalTeachers">0</strong>
+            </div>
+        </section>
+
+        <section class="grid">
+            <div class="card camera-card">
+                <h2>Student Face Camera</h2>
+                <video id="camera" autoplay playsinline></video>
+                <canvas id="snapshot" class="hidden"></canvas>
+                <p id="cameraStatus" class="muted">Starting camera...</p>
+            </div>
+
+            <div class="card">
+                <h2>Add Student Face</h2>
+                <label for="fullName">Full name</label>
+                <input id="fullName" type="text" placeholder="Example: Rahul Sharma">
+
+                <label for="rollNumber">Roll number</label>
+                <input id="rollNumber" type="text" placeholder="Example: CSE001">
+
+                <button id="registerBtn" type="button" class="primary">Capture and Add Student</button>
+                <div id="adminResult" class="result-box">Ready to add student face.</div>
+            </div>
+
+            <div class="card">
+                <h2>Add Teacher</h2>
+                <label for="teacherName">Teacher name</label>
+                <input id="teacherName" type="text" placeholder="Example: Priya Ma'am">
+
+                <label for="teacherUsername">Username</label>
+                <input id="teacherUsername" type="text" placeholder="Example: priya">
+
+                <label for="teacherPassword">Password</label>
+                <input id="teacherPassword" type="password" placeholder="Minimum 6 characters">
+
+                <button id="teacherBtn" type="button">Create Teacher Account</button>
+            </div>
+        </section>
+
+        <section class="card table-card">
+            <div class="table-header">
+                <div>
+                    <p class="eyebrow">Students</p>
+                    <h2>Active Student List</h2>
+                </div>
+                <button id="refreshStudentsBtn" type="button" class="ghost">Refresh</button>
+            </div>
+
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Roll No.</th>
+                            <th>Today</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="studentTable">
+                        <tr><td colspan="4">Loading students...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="card table-card">
+            <div class="table-header">
+                <div>
+                    <p class="eyebrow">Teachers</p>
+                    <h2>Teacher Accounts</h2>
+                </div>
+                <button id="refreshTeachersBtn" type="button" class="ghost">Refresh</button>
+            </div>
+
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Username</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="teacherTable">
+                        <tr><td colspan="4">Loading teachers...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="card table-card">
+            <div class="table-header">
+                <div>
+                    <p class="eyebrow">Reports</p>
+                    <h2>Date Wise Attendance Report</h2>
+                </div>
+                <div class="report-actions">
+                    <input id="reportDate" type="date">
+                    <button id="loadReportBtn" type="button" class="ghost">Load Report</button>
+                    <button id="downloadReportBtn" type="button" class="ghost">Download CSV</button>
+                </div>
+            </div>
+
+            <div id="reportSummary" class="result-box">Choose a date to view attendance report.</div>
+
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Roll No.</th>
+                            <th>Status</th>
+                            <th>Time</th>
+                            <th>Marked By</th>
+                        </tr>
+                    </thead>
+                    <tbody id="reportTable">
+                        <tr><td colspan="5">No report loaded yet.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <script src="{{ url_for('static', filename='admin.js') }}"></script>
+</body>
+</html>

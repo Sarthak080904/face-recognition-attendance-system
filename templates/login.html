@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Attendance System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <main class="shell login-shell">
+        <section class="hero login-hero">
+            <p class="eyebrow">Secure Access</p>
+            <h1>Attendance System Login</h1>
+            <p class="hero-text">
+                Admin manages students, faces, and teachers. Teachers mark attendance by face recognition or manually.
+            </p>
+        </section>
+
+        <section class="card login-card">
+            <h2>Login</h2>
+            <label for="username">Username</label>
+            <input id="username" type="text" placeholder="Example: admin">
+
+            <label for="password">Password</label>
+            <input id="password" type="password" placeholder="Enter password">
+
+            <button id="loginBtn" type="button" class="primary">Login</button>
+            <div id="loginResult" class="result-box">Default admin: username admin, password admin123</div>
+        </section>
+    </main>
+
+    <script src="{{ url_for('static', filename='login.js') }}"></script>
+</body>
+</html>
