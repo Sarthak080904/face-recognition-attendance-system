@@ -38,6 +38,7 @@ Files that should be uploaded include:
 
 - `app.py`
 - `requirements.txt`
+- `runtime.txt`
 - `schema.sql`
 - `render.yaml`
 - `templates/`
@@ -117,6 +118,28 @@ Check:
 - `DATABASE_URL` is correctly added in Render environment variables
 - Neon database is active
 - Tables were created
+
+### psycopg2 Python Version Error
+
+If Render logs show an error like:
+
+```text
+undefined symbol: _PyInterpreterState_Get
+```
+
+Render is using an unsupported Python version. Make sure this file exists in your GitHub repository:
+
+```text
+runtime.txt
+```
+
+It should contain:
+
+```text
+python-3.10.13
+```
+
+Commit and push the file, then redeploy on Render.
 
 ### Face Recognition Fails
 
